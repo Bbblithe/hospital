@@ -6,14 +6,13 @@
         select count(DoctorName) from DoctorDuty
         <where>
             <if test="DoctorName!=null and DoctorName!=''">
-                DoctorName like '%' #{DoctorName} '%'
+                DoctorName like '%${DoctorName}%'
             </if>
-
             <if test="TechOfficeName!=null and TechOfficeName!=''">
-                and TechOfficeName like '%' #{TechOfficeName} '%'
+                and TechOfficeName like '%${TechOfficeName}%'
             </if>
             <if test="MainClassName!=null and MainClassName!=''">
-                and MainClassName like '%' #{MainClassName} '%'
+                and MainClassName like '%${MainClassName}%'
             </if>
         </where>
     </select>
@@ -24,14 +23,13 @@
                MaxReg, RegPrice, DutyTimeStage, DelayFlag, Remark from DoctorDuty
         <where>
             <if test="DoctorName!=null and DoctorName!=''">
-                DoctorName like '%' #{DoctorName} '%'
+                DoctorName like '%${DoctorName}%'
             </if>
-
             <if test="TechOfficeName!=null and TechOfficeName!=''">
-                and TechOfficeName like '%' #{TechOfficeName} '%'
+                and TechOfficeName like '%${TechOfficeName}%'
             </if>
             <if test="MainClassName!=null and MainClassName!=''">
-                and MainClassName like '%' #{MainClassName} '%'
+                and MainClassName like '%${MainClassName}%'
             </if>
         </where>
     </select>

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
 String path = request.getContextPath();
@@ -250,7 +251,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		$("#createBtn").click(function(){
 			$.ajax({
-				url:"workbench/schedule/getUserList.do",
+				url:"workbench/schedule/getList.do",
 				type:"get",
 				dataType:"json",
 				success:function(data){
@@ -376,79 +377,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="col-sm-10" style="width: 300px;">
 								<input type="text" class="form-control" id="create-doctor">
 							</div>
-							<label for="create-appellation" class="col-sm-2 control-label">称呼</label>
-							<div class="col-sm-10" style="width: 300px;">
-								<select class="form-control" id="create-appellation">
-								  <option></option>
-									<c:forEach items="${appellation}" var="a">
-										<option value="${a.value}">${a.text}</option>
-									</c:forEach>
-								</select>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="create-job" class="col-sm-2 control-label">职位</label>
-							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="create-job">
-							</div>
-							<label for="create-mphone" class="col-sm-2 control-label">手机</label>
-							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="create-mphone">
-							</div>
-						</div>
-						
-						<div class="form-group" style="position: relative;">
-							<label for="create-email" class="col-sm-2 control-label">邮箱</label>
-							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="create-email">
-							</div>
-							<label for="create-date" class="col-sm-2 control-label">值班日期</label>
-							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control time" id="create-date">
-							</div>
-						</div>
-						
-						<div class="form-group" style="position: relative;">
 							<label for="create-techRoom" class="col-sm-2 control-label">诊室名称</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="create-techRoom" placeholder="支持自动补全，输入客户不存在则新建">
+								<input type="text" class="form-control" id="create-techRoom" placeholder="支持自动补全">
 							</div>
+						</div>
+						<div class="form-group" style="position: relative;">
+							<label for="create-monthDate" class="col-sm-2 control-label">值班日期（月值班）</label>
+							<div class="col-sm-10" style="width: 300px;">
+								<input type="text" class="form-control time" id="create-monthDate">
+							</div>
+							<label for="create-temp" class="col-sm-2 control-label">临时值</label>
+							<div class="col-sm-10" style="width: 300px;">
+								<input type="radio" class="form-control" id="create-temp">
+							</div>
+						</div>
+						<div class="form-group" style="position: relative;">
+							<label for="create-weekDate" class="col-sm-2 control-label">周值班</label>
+							<div class="col-sm-10" style="width: 300px;">
+								<input type="radio" id="create-weekDate" class="form-control" >
+							</div>
+							<%-- <label for="create-weekDateValue" class="col-sm-2 control-label">周值班</label> --%>
+							<%-- <div class="col-sm-10" style="width: 300px;"> --%>
+							<%-- 	<checkbox path=">" --%>
+							<%-- </div> --%>
 						</div>
 						
 						<div class="form-group" style="position: relative;">
-							<label for="create-description" class="col-sm-2 control-label">描述</label>
+
+						</div>
+						
+						<div class="form-group" style="position: relative;">
+							<label for="create-description" class="col-sm-2 control-label">备注</label>
 							<div class="col-sm-10" style="width: 81%;">
 								<textarea class="form-control" rows="3" id="create-description"></textarea>
 							</div>
 						</div>
-						
-						<div style="height: 1px; width: 103%; background-color: #D5D5D5; left: -13px; position: relative;"></div>
-						
-						<div style="position: relative;top: 15px;">
-							<div class="form-group">
-								<label for="create-scheduleummary" class="col-sm-2 control-label">联系纪要</label>
-								<div class="col-sm-10" style="width: 81%;">
-									<textarea class="form-control" rows="3" id="create-scheduleummary"></textarea>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="create-nextContactTime" class="col-sm-2 control-label">下次联系时间</label>
-								<div class="col-sm-10" style="width: 300px;">
-									<input type="text" class="form-control time" id="create-nextContactTime">
-								</div>
-							</div>
-						</div>
-
-                        <div style="height: 1px; width: 103%; background-color: #D5D5D5; left: -13px; position: relative; top : 10px;"></div>
-
-                        <div style="position: relative;top: 20px;">
-                            <div class="form-group">
-                                <label for="create-address" class="col-sm-2 control-label">详细地址</label>
-                                <div class="col-sm-10" style="width: 81%;">
-                                    <textarea class="form-control" rows="1" id="create-address"></textarea>
-                                </div>
-                            </div>
-                        </div>
 					</form>
 					
 				</div>
@@ -620,7 +584,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="btn-toolbar" role="toolbar" style="background-color: #F7F7F7; height: 50px; position: relative;top: 10px;">
 				<div class="btn-group" style="position: relative; top: 18%;">
-				  <button type="button" id="createBtn" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> 创建</button>
+				  <button type="button" id="createBtn" class="btn btn-primary" data-toggle="modal" data-target="#createscheduleModal"><span class="glyphicon glyphicon-plus"></span> 创建</button>
 				  <button type="button" id="editBtn" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> 修改</button>
 				  <button type="button" id="deleteBtn" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span> 删除</button>
 				</div>

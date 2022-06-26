@@ -32,5 +32,6 @@
                 and MainClassName like '%${MainClassName}%'
             </if>
         </where>
+        order by DutyDate DESC
     </select>
 </mapper>

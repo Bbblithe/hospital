@@ -34,4 +34,16 @@
         </where>
         order by DutyDate DESC
     </select>
+
+    <select id="selectMainClasses" resultType="com.blithe.hospital.workbench.domain.MainClass">
+        select cMainCode,cMainName from V_MainClasses
+    </select>
+
+    <select id="selectTechName" resultType="String">
+        select Name from V_TechOffices
+    </select>
+
+    <delete id="delete" >
+        delete from DoctorDuty where DutyNo = #{id}
+    </delete>
 </mapper>

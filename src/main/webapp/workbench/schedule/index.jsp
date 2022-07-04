@@ -36,6 +36,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			pickerPosition: "bottom-left"
 		});
 
+		$("#create-techRoom").typeahead({
+			source: function (query, process) {
+				$.get(
+						"workbench/schedule/getTech.do",
+						{ "name" : query },
+						function (data) {
+							//alert(data);
+							process(data);
+						},
+						"json"
+				);
+			},
+			delay: 100
+		});
+
 		$("#editBtn").click(function (){
 			let $xz = $("input[name=xz]:checked");
 			if($xz.length == 0){
@@ -256,14 +271,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				dataType:"json",
 				success:function(data){
 					let html = "";
-					$.each(data,function(i,n){
-						html += "<option value='"+n.id+"'>"+n.name+"</option>"
+					$.each(data.mainClassList,function(i,n){
+						html += "<option value='"+n.cMainCode+"'>"+n.cMainName+"</option>"
 					})
 					$("#create-mainClass").html(html);
-
-					let id = "${user.id}";
-					$("#create-mainClass").val(id);
-
+					// $.each(data.techList,function(i,n){
+					// 	html += "<option value='"+n.id+"'>"+n.name+"</option>"
+					// })
 					// 处理完下拉框数据后，打开模态窗口
 					$("#createscheduleModal").modal("show");
 				}
@@ -291,15 +305,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			type:"get",
 			dataType:"json",
 			success:function(data){
-				/*
-					result:
-					{"total":100,"scheduleList":["线索1":{"id":adsfa,...},"线索2":{"":..}]}
-					 result.
-				 */
 				let html = "";
 				$.each(data.dataList,function(i,n){
 					html += '<tr class="active">'
-					html += '	<td><input type="checkbox" name="xz" value="'+n.id+'"/></td>'
+					html += '	<td><input type="checkbox" name="xz" value="'+n.dotyNo+'"/></td>'
 					html += '	<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href=\'workbench/schedule/detail.do?id='+n.id+'\';">'+n.doctorName+'</a></td>'
 					html += '	<td>'+n.docGrade+'</td>'
 					html += '	<td>'+n.techOfficeName+'</td>'
@@ -365,9 +374,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="col-sm-10" style="width: 300px;">
 								<select class="form-control" id="create-subentry">
 								  <option></option>
-									<c:forEach items="${source}" var="s">
-										<option value="${s.value}">${s.text}</option>
-									</c:forEach>
 								</select>
 							</div>
 						</div>

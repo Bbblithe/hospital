@@ -3,10 +3,12 @@ package com.blithe.hospital.workbench.service.impl;
 import com.blithe.hospital.vo.PaginationVo;
 import com.blithe.hospital.workbench.dao.DoctorDutyDao;
 import com.blithe.hospital.workbench.domain.DoctorDuty;
+import com.blithe.hospital.workbench.domain.MainClass;
 import com.blithe.hospital.workbench.service.DoctorDutyService;
 import com.github.pagehelper.PageHelper;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,5 +34,26 @@ public class DoctorDutyServiceImpl implements DoctorDutyService {
         List<DoctorDuty> doctorDutyList = doctorDutyDao.getDutyListByCondition(doctorDuty);
         vo.setDataList(doctorDutyList);
         return vo;
+    }
+
+    @Override
+    public List<MainClass> getMainClassList() {
+        List<MainClass> mainClasses = doctorDutyDao.selectMainClasses();
+        return mainClasses;
+    }
+
+    @Override
+    public List<String> getTechNameList() {
+        return doctorDutyDao.selectTechName();
+    }
+
+    @Override
+    @Transactional
+    public boolean delete(String[] ids) {
+        int count = 0;
+        for(int i = 0 ; i < ids.length ; i ++){
+            count += doctorDutyDao.delete(ids[i]);
+        }
+        return count == ids.length;
     }
 }

@@ -1,6 +1,7 @@
 package com.blithe.hospital.workbench.dao;
 
 import com.blithe.hospital.workbench.domain.DoctorDuty;
+import com.blithe.hospital.workbench.domain.MainClass;
 
 import java.util.List;
 
@@ -14,4 +15,10 @@ public interface DoctorDutyDao {
     int getTotal(DoctorDuty doctorDuty);
 
     List<DoctorDuty> getDutyListByCondition(DoctorDuty doctorDuty);
+
+    List<MainClass> selectMainClasses();
+
+    List<String> selectTechName();
+
+    int delete(String id);
 }

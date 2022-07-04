@@ -1,5 +1,6 @@
 package com.blithe.hospital.workbench.web.controller;
 
+import com.blithe.hospital.utils.PrintJson;
 import com.blithe.hospital.vo.PaginationVo;
 import com.blithe.hospital.workbench.domain.DoctorDuty;
 import com.blithe.hospital.workbench.service.DoctorDutyService;
@@ -8,7 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Author:  blithe.xwj
@@ -48,5 +55,27 @@ public class DoctorDutyController {
             }
         }
         return paginationVo;
+    }
+
+    @RequestMapping("/delete.do")
+    public void deleteActivity(HttpServletResponse response, HttpServletRequest request){
+        String ids[] = request.getParameterValues("id");
+        boolean flag = doctorDutyService.delete(ids);
+        PrintJson.printJsonFlag(response,flag);
+    }
+
+    @RequestMapping("getList.do")
+    @ResponseBody
+    public Map<String,List> createBtn(){
+        Map<String,List> map = new HashMap<>();
+        map.put("mainClassList",doctorDutyService.getMainClassList());
+        return map;
+    }
+
+    @RequestMapping("getTech.do")
+    @ResponseBody
+    public List<String> getTech(){
+        List<String> techNames = doctorDutyService.getTechNameList();
+        return techNames;
     }
 }

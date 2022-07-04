@@ -51,6 +51,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			delay: 100
 		});
 
+		$("#create-doctor").typeahead({
+			source: function (query, process) {
+				$.get(
+						"workbench/schedule/getDoc.do",
+						{ "name" : query },
+						function (data) {
+							//alert(data);
+							process(data);
+						},
+						"json"
+				);
+			},
+			delay: 100
+		})
+
 		$("#editBtn").click(function (){
 			let $xz = $("input[name=xz]:checked");
 			if($xz.length == 0){
@@ -370,7 +385,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="form-group">
 							<label for="create-doctor" class="col-sm-2 control-label">医生姓名<span style="font-size: 15px; color: red;">*</span></label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="create-doctor">
+								<input type="text" class="form-control" id="create-doctor" placeholder="支持自动补全">
 							</div>
 							<label for="create-techRoom" class="col-sm-2 control-label">诊室名称</label>
 							<div class="col-sm-10" style="width: 300px;">

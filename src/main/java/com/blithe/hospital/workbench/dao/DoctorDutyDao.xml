@@ -68,4 +68,7 @@
         values(#{techOfficeCode},#{techOfficeName},#{MainClassCode},#{MainClassName},#{DoctorCode},#{DoctorName},#{DocGrade},#{DutyDate},#{Remark},#{PDetailCode})
     </insert>
 
+    <select id="getDocNameList" resultType="String">
+        select DoctorName from Doctor
+    </select>
 </mapper>

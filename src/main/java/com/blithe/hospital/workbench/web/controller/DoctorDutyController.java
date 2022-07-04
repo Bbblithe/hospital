@@ -43,8 +43,8 @@ public class DoctorDutyController {
             duty.setDutyDate(duty.getDutyDate().substring(0,10));
             if("0".equals(duty.getDutyType())){
                 duty.setDutyType("临时值班");
-            }else{
-
+            }else if("1".equals(duty.getDutyType())){
+                duty.setDutyType("每月值班");
             }
             if("2".equals(duty.getDutyTimeStage())){
                 duty.setDutyTimeStage("全天");
@@ -90,5 +90,11 @@ public class DoctorDutyController {
         doctorDuty.setMainClassCode(mainClass);
         doctorDuty.setDutyDate("2022-07-04");
         return doctorDutyService.saveDuty(doctorDuty);
+    }
+
+    @RequestMapping("getDoc.do")
+    @ResponseBody
+    public List<String> getDocList(){
+        return doctorDutyService.getDoctorList();
     }
 }

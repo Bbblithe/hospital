@@ -31,4 +31,6 @@ public interface DoctorDutyDao {
     String getTechId(String techOfficeName);
 
     String getDocGrade(String docCode);
+
+    List<String> getDocNameList();
 }

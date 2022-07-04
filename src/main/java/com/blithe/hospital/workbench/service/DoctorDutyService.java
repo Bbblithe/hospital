@@ -25,4 +25,6 @@ public interface DoctorDutyService {
     int getLastNo();
 
     boolean saveDuty(DoctorDuty doctorDuty);
+
+    List<String> getDoctorList();
 }

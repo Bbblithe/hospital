@@ -75,4 +75,9 @@ public class DoctorDutyServiceImpl implements DoctorDutyService {
         doctorDuty.setPDetailCode("123123");
         return doctorDutyDao.save(doctorDuty) != 1;
     }
+
+    @Override
+    public List<String> getDoctorList() {
+        return doctorDutyDao.getDocNameList();
+    }
 }

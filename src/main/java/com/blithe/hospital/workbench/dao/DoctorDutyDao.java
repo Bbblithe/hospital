@@ -20,5 +20,15 @@ public interface DoctorDutyDao {
 
     List<String> selectTechName();
 
-    int delete(String id);
+    int deleteOne(String id);
+
+    int getLastNo();
+
+    String getDoctorIdByName(String doctor);
+
+    int save(DoctorDuty doctorDuty);
+
+    String getTechId(String techOfficeName);
+
+    String getDocGrade(String docCode);
 }

@@ -78,4 +78,17 @@ public class DoctorDutyController {
         List<String> techNames = doctorDutyService.getTechNameList();
         return techNames;
     }
+
+    @RequestMapping("save.do")
+    @ResponseBody
+    public boolean saveDuty(String doctor,String mainClass,String techRoom,String description,String date){
+        DoctorDuty doctorDuty = new DoctorDuty();
+        doctorDuty.setDutyNo(String.valueOf(doctorDutyService.getLastNo()));
+        doctorDuty.setRemark(description);
+        doctorDuty.setTechOfficeName(techRoom);
+        doctorDuty.setDoctorName(doctor);
+        doctorDuty.setMainClassCode(mainClass);
+        doctorDuty.setDutyDate("2022-07-04");
+        return doctorDutyService.saveDuty(doctorDuty);
+    }
 }

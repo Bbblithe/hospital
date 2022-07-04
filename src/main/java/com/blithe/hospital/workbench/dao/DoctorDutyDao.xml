@@ -43,7 +43,29 @@
         select Name from V_TechOffices
     </select>
 
-    <delete id="delete" >
+    <delete id="deleteOne" >
         delete from DoctorDuty where DutyNo = #{id}
     </delete>
+
+    <select id="getLastNo" resultType="int">
+        select MAX(DutyNo) from DoctorDuty
+    </select>
+
+    <select id="getDoctorIdByName" resultType="String">
+        select DoctorCode from Doctor where DoctorName = #{doctor}
+    </select>
+
+    <select id="getDocGrade" resultType="String">
+        select Grade from Doctor where DoctorCode = #{docCode}
+    </select>
+
+    <select id="getTechId" resultType="String">
+        select Code from TechOffices where Name = #{techOfficeName}
+    </select>
+
+    <insert id="save" >
+        insert into DoctorDuty(TechOfficeCode, TechOfficeName, MainClassCode, MainClassName,  DoctorCode, DoctorName, DocGrade, DutyDate,Remark,PDetailCode)
+        values(#{techOfficeCode},#{techOfficeName},#{MainClassCode},#{MainClassName},#{DoctorCode},#{DoctorName},#{DocGrade},#{DutyDate},#{Remark},#{PDetailCode})
+    </insert>
+
 </mapper>

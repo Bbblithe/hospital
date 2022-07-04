@@ -93,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						$("#edit-source").val(schedule.source)
                         $("#edit-techRoom").val(schedule.customerId)
 						$("#edit-description").val(schedule.description)
-						$("#edit-scheduleummary").val(schedule.scheduleummary)
+						$("#edit-scheduleSummary").val(schedule.scheduleSummary)
 						$("#edit-nextContactTime").val(schedule.nextContactTime)
 						$("#edit-address").val(schedule.address)
 						$("#editScheduleModal").modal("show");
@@ -116,7 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					"source":$.trim($("#edit-source").val()),
 					"description":$.trim($("#edit-description").val()),
 					"techRoom":$.trim($("#edit-techRoom").val()),
-					"scheduleummary":$.trim($("#edit-scheduleummary").val()),
+					"scheduleSummary":$.trim($("#edit-scheduleSummary").val()),
 					"nextContactTime":$.trim($("#edit-nextContactTime").val()),
 					"address":$.trim($("#edit-address").val()),
 					"mphone":$.trim($("#edit-mphone").val()),
@@ -191,18 +191,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				url:"workbench/schedule/save.do",
 				data:{
 					"doctor":$.trim($("#create-doctor").val()),
-					"appellation":$.trim($("#create-appellation").val()),
 					"mainClass":$.trim($("#create-mainClass").val()),
-					"job":$.trim($("#create-job").val()),
 					"techRoom":$.trim($("#create-techRoom").val()),
-					"email":$.trim($("#create-email").val()),
-					"mphone":$.trim($("#create-mphone").val()),
-					"source":$.trim($("#create-subentry").val()),
 					"description":$.trim($("#create-description").val()),
-					"scheduleummary":$.trim($("#create-scheduleummary").val()),
-					"nextContactTime":$.trim($("#create-nextContactTime").val()),
-					"date":$.trim($("#create-date").val()),
-					"address":$.trim($("#create-address").val())
+					"date":$.trim($("#create-MonthDate").val())
 				},
 				type:"post",
 				dataType:"json",
@@ -220,7 +212,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						$("#scheduleForm")[0].reset();
 
 						// 关闭模态窗口
-						$("#createscheduleModal").modal("hide");
+						$("#createScheduleModal").modal("hide");
 					}else{
 						alert("添加线索失败")
 					}
@@ -230,7 +222,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		$("#deleteBtn").click(function(){
 			let $xz = $("input[name=xz]:checked");
-
 			if($xz.length == 0){
 				alert("请选择需要删除的线索")
 			}else{
@@ -243,8 +234,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							param+="&";
 						}
 					})
-
-					// alert(param);
 					$.ajax({
 						url:"workbench/schedule/delete.do",
 						data:param,
@@ -279,7 +268,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					// 	html += "<option value='"+n.id+"'>"+n.name+"</option>"
 					// })
 					// 处理完下拉框数据后，打开模态窗口
-					$("#createscheduleModal").modal("show");
+					$("#createScheduleModal").modal("show");
 				}
 			})
 		})
@@ -308,7 +297,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				let html = "";
 				$.each(data.dataList,function(i,n){
 					html += '<tr class="active">'
-					html += '	<td><input type="checkbox" name="xz" value="'+n.dotyNo+'"/></td>'
+					html += '	<td><input type="checkbox" name="xz" value="'+n.dutyNo+'"/></td>'
 					html += '	<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href=\'workbench/schedule/detail.do?id='+n.id+'\';">'+n.doctorName+'</a></td>'
 					html += '	<td>'+n.docGrade+'</td>'
 					html += '	<td>'+n.techOfficeName+'</td>'
@@ -352,11 +341,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <input type="hidden" id="hide-techRoom">
 
 	<!-- 创建排班的模态窗口 -->
-	<div class="modal fade" id="createscheduleModal" role="dialog">
+	<div class="modal fade" id="createScheduleModal" role="dialog">
 		<div class="modal-dialog" role="document" style="width: 85%;">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" onclick="$('#createscheduleModal').modal('hide');">
+					<button type="button" class="close" onclick="$('#createScheduleModal').modal('hide');">
 						<span aria-hidden="true">×</span>
 					</button>
 					<h4 class="modal-title" id="myModalLabelx">创建排班</h4>
@@ -515,9 +504,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 						<div style="position: relative;top: 15px;">
 							<div class="form-group">
-								<label for="edit-scheduleummary" class="col-sm-2 control-label">联系纪要</label>
+								<label for="edit-scheduleSummary" class="col-sm-2 control-label">联系纪要</label>
 								<div class="col-sm-10" style="width: 81%;">
-									<textarea class="form-control" rows="3" id="edit-scheduleummary"></textarea>
+									<textarea class="form-control" rows="3" id="edit-scheduleSummary"></textarea>
 								</div>
 							</div>
 							<div class="form-group">
@@ -590,7 +579,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="btn-toolbar" role="toolbar" style="background-color: #F7F7F7; height: 50px; position: relative;top: 10px;">
 				<div class="btn-group" style="position: relative; top: 18%;">
-				  <button type="button" id="createBtn" class="btn btn-primary" data-toggle="modal" data-target="#createscheduleModal"><span class="glyphicon glyphicon-plus"></span> 创建</button>
+				  <button type="button" id="createBtn" class="btn btn-primary" data-toggle="modal" data-target="#createScheduleModal"><span class="glyphicon glyphicon-plus"></span> 创建</button>
 				  <button type="button" id="editBtn" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> 修改</button>
 				  <button type="button" id="deleteBtn" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span> 删除</button>
 				</div>

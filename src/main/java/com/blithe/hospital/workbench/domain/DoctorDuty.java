@@ -7,6 +7,7 @@ package com.blithe.hospital.workbench.domain;
  */
 
 public class DoctorDuty {
+    private String DutyNo;
     private String TechOfficeCode;
     private String TechOfficeName;
     private String MainClassCode;
@@ -186,5 +187,13 @@ public class DoctorDuty {
 
     public void setRemark(String remark) {
         Remark = remark;
+    }
+
+    public String getDutyNo() {
+        return DutyNo;
+    }
+
+    public void setDutyNo(String dutyNo) {
+        DutyNo = dutyNo;
     }
 }

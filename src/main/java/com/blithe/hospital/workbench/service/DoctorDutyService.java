@@ -21,4 +21,8 @@ public interface DoctorDutyService {
     List<String> getTechNameList();
 
     boolean delete(String[] ids);
+
+    int getLastNo();
+
+    boolean saveDuty(DoctorDuty doctorDuty);
 }
